@@ -38,6 +38,6 @@ run: $(OUTPUT)
 valgrind: $(OUTPUT)
 	@valgrind --leak-check=full ./$(OUTPUT)
 zip:
-	@tar -czvf Stefaniak.tar.gz $(EDT_FILES) [mM]akefile
+	@tar -czvf Complex_Rational.tar.gz $(EDT_FILES) [mM]akefile
 
 -include $(DEP) 
