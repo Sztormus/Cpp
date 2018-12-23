@@ -1,1 +1,1 @@
-Program which does operation on geometric sequence. It has been written on Debian.
+Program which does operations on geometric sequence. It has been written on Debian.
