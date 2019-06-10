@@ -8,6 +8,7 @@ class Point
 {
 public:
 	Point() = default;
+	~Point() = default;
 
 	float x = 0.0, y = 0.0, z = 0.0;
 };
@@ -16,6 +17,7 @@ class Segment
 {
 public:
 	Segment() = default;
+	~Segment() = default;
 
 	Point* begin;
 	Point* end;
