@@ -1,4 +1,4 @@
-#include "MainFrame.h"
+ï»¿#include "MainFrame.h"
 
 MainFrame::MainFrame() : wxFrame(NULL, wxID_ANY, "Animacja szkieletu", wxDefaultPosition, wxSize(910, 749))
 {
@@ -8,10 +8,6 @@ MainFrame::MainFrame() : wxFrame(NULL, wxID_ANY, "Animacja szkieletu", wxDefault
 MainFrame::~MainFrame()
 {
 	m_pnlSkeleton->Disconnect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(MainFrame::WxPanel_Repaint), NULL, this);
-}
-
-void MainFrame::bindEvents()
-{
 }
 
 void MainFrame::onExit(wxCommandEvent & event)
@@ -107,24 +103,28 @@ void MainFrame::setUpUi()
 	wxStaticText* stMovementTitle = new wxStaticText(this, wxID_ANY, wxT("Poruszanie"), wxDefaultPosition, wxDefaultSize, 0);
 	stMovementTitle->Wrap(-1);
 	stMovementTitle->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), 70, 90, 92, true, wxEmptyString));
+	bsUi->Add(0, 35, 0, wxEXPAND, 5);
 	bsUi->Add(stMovementTitle, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 5);
 
 	// ---- body
 	wxStaticLine* sl1 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
 	bsBody->Add(sl1, 0, wxEXPAND | wxALL, 5);
 
-	wxStaticText* stHead = new wxStaticText(this, wxID_ANY, wxT("G³owa"), wxDefaultPosition, wxDefaultSize, 0);
+	wxStaticText* stHead = new wxStaticText(this, wxID_ANY, wxT("G\u0142owa"), wxDefaultPosition, wxDefaultSize, 0);
 	stHead->Wrap(-1);
 	stHead->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), 70, 90, 92, false, wxEmptyString));
 
 	bsBody->Add(stHead, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 0);
-	bsBody->Add(0, 35, 1, wxEXPAND, 5);
+	bsBody->Add(0, 11, 1, wxEXPAND, 5);
 
-	m_sldHeadX = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_sldHeadX = new wxSlider(this, wxID_ANY, 0, -50, 50, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsBody->Add(m_sldHeadX, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 
-	m_sldHeadY = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_sldHeadY = new wxSlider(this, wxID_ANY, 0, -50, 50, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsBody->Add(m_sldHeadY, 0, wxALIGN_CENTER_HORIZONTAL, 0);
+
+	m_sldHeadZ = new wxSlider(this, wxID_ANY, 0, -50, 50, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	bsBody->Add(m_sldHeadZ, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 
 	wxStaticLine* sl2 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
 	bsBody->Add(sl2, 0, wxALL | wxEXPAND, 5);
@@ -143,10 +143,10 @@ void MainFrame::setUpUi()
 
 	bsBody->Add(m_chShoulder, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 5);
 
-	m_sldShoulderX = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_sldShoulderX = new wxSlider(this, wxID_ANY, 0, -50, 50, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsBody->Add(m_sldShoulderX, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 
-	m_sldShoulderY = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_sldShoulderY = new wxSlider(this, wxID_ANY, 0, -50, 50, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsBody->Add(m_sldShoulderY, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 
 	wxStaticLine* sl3 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
@@ -160,10 +160,10 @@ void MainFrame::setUpUi()
 
 	bsBody->Add(0, 0, 1, wxEXPAND, 5);
 
-	m_sldBellyX = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_sldBellyX = new wxSlider(this, wxID_ANY, 0, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsBody->Add(m_sldBellyX, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 
-	m_sldBellyY = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_sldBellyY = new wxSlider(this, wxID_ANY, 0, -50, 50, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsBody->Add(m_sldBellyY, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 
 	wxStaticLine* sl4 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
@@ -184,10 +184,10 @@ void MainFrame::setUpUi()
 
 	bsBody->Add(m_chHip, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 5);
 
-	m_sldHipX = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_sldHipX = new wxSlider(this, wxID_ANY, 0, 0, 70, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsBody->Add(m_sldHipX, 0, wxALIGN_CENTER_HORIZONTAL, 0);
-
-	m_sldHipY = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	;
+	m_sldHipY = new wxSlider(this, wxID_ANY, 0, 0, 70, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsBody->Add(m_sldHipY, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 
 	wxStaticLine* sl5 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
@@ -199,7 +199,7 @@ void MainFrame::setUpUi()
 	wxStaticLine* sl6 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
 	bsArms->Add(sl6, 0, wxEXPAND | wxALL, 5);
 
-	wxStaticText* stForearm = new wxStaticText(this, wxID_ANY, wxT("Przedramiê"), wxDefaultPosition, wxDefaultSize, 0);
+	wxStaticText* stForearm = new wxStaticText(this, wxID_ANY, wxT("Rami\u0119"), wxDefaultPosition, wxDefaultSize, 0);
 	stForearm->Wrap(-1);
 	stForearm->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), 70, 90, 92, false, wxEmptyString));
 
@@ -213,16 +213,16 @@ void MainFrame::setUpUi()
 
 	bsArms->Add(m_chForearm, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 5);
 
-	m_sldForearmX = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_sldForearmX = new wxSlider(this, wxID_ANY, 0, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsArms->Add(m_sldForearmX, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 
-	m_sldForearmY = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_sldForearmY = new wxSlider(this, wxID_ANY, 0, -30, 60, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsArms->Add(m_sldForearmY, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 
 	wxStaticLine* sl7 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
 	bsArms->Add(sl7, 0, wxEXPAND | wxALL, 5);
 
-	wxStaticText* stHand = new wxStaticText(this, wxID_ANY, wxT("D³oñ"), wxDefaultPosition, wxDefaultSize, 0);
+	wxStaticText* stHand = new wxStaticText(this, wxID_ANY, wxT("Przedrami\u0119"), wxDefaultPosition, wxDefaultSize, 0);
 	stHand->Wrap(-1);
 	stHand->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), 70, 90, 92, false, wxEmptyString));
 
@@ -236,11 +236,10 @@ void MainFrame::setUpUi()
 
 	bsArms->Add(m_chHand, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 5);
 
-	m_sldHandX = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_sldHandX = new wxSlider(this, wxID_ANY, 0, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsArms->Add(m_sldHandX, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 
-	m_sldHandY = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
-	bsArms->Add(m_sldHandY, 0, wxALIGN_CENTER_HORIZONTAL, 0);
+	bsArms->Add(0, 24, 0, wxEXPAND, 5);
 
 	wxStaticLine* sl8 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
 	bsArms->Add(sl8, 0, wxEXPAND | wxALL, 5);
@@ -265,16 +264,15 @@ void MainFrame::setUpUi()
 
 	bsLegs->Add(m_chThigh, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 5);
 
-	m_sldThighX = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_sldThighX = new wxSlider(this, wxID_ANY, 0, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsLegs->Add(m_sldThighX, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 
-	m_sldThighY = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
-	bsLegs->Add(m_sldThighY, 0, wxALIGN_CENTER_HORIZONTAL, 0);
+	bsLegs->Add(0, 24, 0, wxEXPAND, 5);
 
 	wxStaticLine* sl10 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
 	bsLegs->Add(sl10, 0, wxEXPAND | wxALL, 5);
 
-	wxStaticText* stCalf = new wxStaticText(this, wxID_ANY, wxT("£ydka"), wxDefaultPosition, wxDefaultSize, 0);
+	wxStaticText* stCalf = new wxStaticText(this, wxID_ANY, wxT("\u0141ydka"), wxDefaultPosition, wxDefaultSize, 0);
 	stCalf->Wrap(-1);
 	stCalf->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), 70, 90, 92, false, wxEmptyString));
 
@@ -288,11 +286,10 @@ void MainFrame::setUpUi()
 
 	bsLegs->Add(m_chCalf, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 5);
 
-	m_sldCalfX = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+	m_sldCalfX = new wxSlider(this, wxID_ANY, 0, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 	bsLegs->Add(m_sldCalfX, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 
-	m_sldCalfY = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
-	bsLegs->Add(m_sldCalfY, 0, wxALIGN_CENTER_HORIZONTAL, 0);
+	bsLegs->Add(0, 24, 0, wxEXPAND, 5);
 
 	wxStaticLine* sl11 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
 	bsLegs->Add(sl11, 0, wxEXPAND | wxALL, 5);
@@ -301,37 +298,16 @@ void MainFrame::setUpUi()
 
 	bsUi->Add(bsMovement, 1, wxEXPAND, 5);
 
-	bsUi->Add(0, 5, 0, 0, 5);
-
-	// -- animation
-	wxStaticText* stAnimationTitle = new wxStaticText(this, wxID_ANY, wxT("Animacja"), wxDefaultPosition, wxDefaultSize, 0);
-	stAnimationTitle->Wrap(-1);
-	stAnimationTitle->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), 70, 90, 92, true, wxEmptyString));
-
-	bsUi->Add(stAnimationTitle, 0, wxALIGN_CENTER_HORIZONTAL | wxALL, 5);
-
-	wxStaticLine* slAnimationTitle = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
-	bsUi->Add(slAnimationTitle, 0, wxEXPAND | wxALL, 5);
-
 	bsContainer->Add(bsUi, 1, wxALIGN_CENTER_HORIZONTAL, 5);
 
 	this->SetSizer(bsContainer);
 	this->Layout();
 
-	// menus
-	m_menuBar = new wxMenuBar(0);
-	m_menuProject = new wxMenu();
-	m_menuBar->Append(m_menuProject, wxT("Projekt"));
-
-	m_menuAnimation = new wxMenu();
-	m_menuBar->Append(m_menuAnimation, wxT("Animacja"));
-
-	m_menuHelp = new wxMenu();
-	m_menuBar->Append(m_menuHelp, wxT("Pomoc"));
-
-	this->SetMenuBar(m_menuBar);
-
 	this->Centre(wxBOTH);
 
 	m_pnlSkeleton->Connect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(MainFrame::WxPanel_Repaint), NULL, this);
+}
+void MainFrame::WxPanel_Repaint(wxUpdateUIEvent& event)
+{ 
+	event.Skip();
 }

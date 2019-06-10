@@ -1,10 +1,8 @@
 #pragma once
 #include <wx/wx.h>
-//#include <wx/dcbuffer.h>
-//#include <wx/colordlg.h>
 #include <wx/statline.h>
 
-class MainFrame : public wxFrame
+class MainFrame: public wxFrame
 {
 public:
 	MainFrame();
@@ -12,17 +10,10 @@ public:
 
 protected:
 	void setUpUi();
-	void bindEvents();
 
 	/* events */
 	void onExit(wxCommandEvent& event);
-	virtual void WxPanel_Repaint(wxUpdateUIEvent& event) { event.Skip(); }
-
-	/* binded events IDs */
-	enum
-	{
-		ID_WXBUTTON_MOVE_LEFT_ARM = 1001,
-	};
+	virtual void WxPanel_Repaint(wxUpdateUIEvent& event);
 
 	wxPanel* m_pnlSkeleton;
 	wxSlider* m_sldRotationX;
@@ -30,6 +21,7 @@ protected:
 	wxSlider* m_sldRotationZ;
 	wxSlider* m_sldHeadX;
 	wxSlider* m_sldHeadY;
+	wxSlider* m_sldHeadZ;
 	wxChoice* m_chShoulder;
 	wxSlider* m_sldShoulderX;
 	wxSlider* m_sldShoulderY;
@@ -43,15 +35,8 @@ protected:
 	wxSlider* m_sldForearmY;
 	wxChoice* m_chHand;
 	wxSlider* m_sldHandX;
-	wxSlider* m_sldHandY;
 	wxChoice* m_chThigh;
 	wxSlider* m_sldThighX;
-	wxSlider* m_sldThighY;
 	wxChoice* m_chCalf;
 	wxSlider* m_sldCalfX;
-	wxSlider* m_sldCalfY;
-	wxMenuBar* m_menuBar;
-	wxMenu* m_menuProject;
-	wxMenu* m_menuAnimation;
-	wxMenu* m_menuHelp;
 };
