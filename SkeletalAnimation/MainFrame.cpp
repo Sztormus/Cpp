@@ -8,6 +8,31 @@ MainFrame::MainFrame() : wxFrame(NULL, wxID_ANY, "Animacja szkieletu", wxDefault
 MainFrame::~MainFrame()
 {
 	m_pnlSkeleton->Disconnect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(MainFrame::WxPanel_Repaint), NULL, this);
+
+	delete m_pnlSkeleton;
+	delete m_sldRotationX;
+	delete m_sldRotationY;
+	delete m_sldRotationZ;
+	delete m_sldHeadX;
+	delete m_sldHeadY;
+	delete m_sldHeadZ;
+	delete m_chShoulder;
+	delete m_sldShoulderX;
+	delete m_sldShoulderY;
+	delete m_sldBellyX;
+	delete m_sldBellyY;
+	delete m_chHip;
+	delete m_sldHipX;
+	delete m_sldHipY;
+	delete m_chForearm;
+	delete m_sldForearmX;
+	delete m_sldForearmY;
+	delete m_chHand;
+	delete m_sldHandX;
+	delete m_chThigh;
+	delete m_sldThighX;
+	delete m_chCalf;
+	delete m_sldCalfX;
 }
 
 void MainFrame::onExit(wxCommandEvent & event)
